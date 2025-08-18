@@ -15,6 +15,10 @@ require('lazy').setup({
   { import = 'scarelli.plugins' },
   { import = 'scarelli.plugins.lsp' },
 }, {
+  rocks = {
+    hererocks = false,
+    enabled = false,
+  },
   checker = {
     enabled = true,
     notify = false,
