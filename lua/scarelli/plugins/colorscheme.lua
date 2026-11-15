@@ -256,7 +256,7 @@ return {
     'sainnhe/sonokai',
     -- priority = 1000,
     config = function()
-      vim.g.sonokai_style = 'default' -- (pode ser 'default', 'atlantis', 'andromeda', 'shusia', 'maia')
+      vim.g.sonokai_style = 'default' -- (can be 'default', 'atlantis', 'andromeda', 'shusia', 'maia')
       vim.g.sonokai_enable_italic = 0
       vim.g.sonokai_transparent_background = 0
       vim.g.sonokai_disable_italic_comment = 1

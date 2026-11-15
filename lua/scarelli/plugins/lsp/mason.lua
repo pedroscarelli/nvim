@@ -40,9 +40,9 @@ return {
           'marksman',
         },
         automatic_installation = true,
-        -- Handler movido para dentro do setup
+        -- Handler moved inside setup
         handlers = {
-          -- handler padrão para todos
+          -- default handler for all servers
           function(server_name)
             lspconfig[server_name].setup { capabilities = capabilities }
           end,
