@@ -39,6 +39,9 @@ return {
           'emmet_language_server',
           'marksman',
         },
+        automatic_enable = {
+          exclude = { 'jdtls' },
+        },
         automatic_installation = true,
         -- Handler moved inside setup
         handlers = {

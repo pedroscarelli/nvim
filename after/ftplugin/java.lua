@@ -7,15 +7,25 @@ local workspace_path = home .. '/.local/share/nvim/jdtls-workspace/'
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 local workspace_dir = workspace_path .. project_name
 
+local jdk25 = home .. '/.sdkman/candidates/java/25.0.5.0+8-tem'
+local jdk21 = home .. '/.sdkman/candidates/java/21.0.13.0+9-tem'
+local jdk17 = home .. '/.sdkman/candidates/java/17.0.21.0+9-tem'
+
 local status, jdtls = pcall(require, 'jdtls')
 if not status then
   return
 end
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 
+local launcher = vim.fn.glob(home .. '/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar')
+if launcher == '' then
+  vim.notify('jdtls not installed: run :MasonInstall jdtls', vim.log.levels.WARN)
+  return
+end
+
 local config = {
   cmd = {
-    'java',
+    jdk25 .. '/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -29,7 +39,7 @@ local config = {
     'java.base/java.lang=ALL-UNNAMED',
     '-javaagent:' .. home .. '/.local/share/nvim/lombok/lombok.jar',
     '-jar',
-    vim.fn.glob(home .. '/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar'),
+    launcher,
     '-configuration',
     home .. '/.local/share/nvim/mason/packages/jdtls/config_linux',
     '-data',
@@ -41,6 +51,13 @@ local config = {
     java = {
       signatureHelp = { enabled = true },
       extendedClientCapabilities = extendedClientCapabilities,
+      configuration = {
+        runtimes = {
+          { name = 'JavaSE-17', path = jdk17, default = true },
+          { name = 'JavaSE-21', path = jdk21 },
+          { name = 'JavaSE-25', path = jdk25 },
+        },
+      },
       maven = {
         downloadSources = true,
       },

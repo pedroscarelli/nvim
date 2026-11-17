@@ -9,6 +9,7 @@ return {
     local wilder = require 'wilder'
 
     wilder.setup { modes = { ':', '/', '?' } }
+    wilder.set_option('use_python_remote_plugin', 0)
 
     -- Define custom highlight groups
 
